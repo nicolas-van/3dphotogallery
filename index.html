@@ -11,12 +11,24 @@
             margin: 0;
             padding: 0;
         }
+        #photogallery {
+            width: 640px;
+            height: 360px;
+            max-width: 100%;
+            margin: 0px auto;
+        }
     </style>
 
     <script src="static/all.js"></script>
+    <script>
+    $(function() {
+        var pg = new PhotoGallery($("#photogallery"));
+    });
+    </script>
 
 </head>
 <body>
-
+    <div id="photogallery">
+    </div>
 </body>
 </html>
