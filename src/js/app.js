@@ -44,12 +44,22 @@
             }.bind(this));
             this._planes = [];
             this._photos.forEach(function(el) {
-                var texture = THREE.ImageUtils.loadTexture(el);
-                var material = new THREE.MeshBasicMaterial({map: texture});
-                var geometry = new THREE.PlaneGeometry(5, 5);
-                var plane = new THREE.Mesh(geometry, material);
-                this._scene.add(plane);
-                this._planes.push(plane);
+                var texture = THREE.ImageUtils.loadTexture(el, undefined, function() {
+                    var w = texture.image.width;
+                    var h = texture.image.height;
+                    if (w > h) {
+                        h = 5 / (w / h);
+                        w = 5;
+                    } else {
+                        w = 5 * (w / h);
+                        h = 5;
+                    }
+                    var material = new THREE.MeshBasicMaterial({map: texture});
+                    var geometry = new THREE.PlaneGeometry(w, h);
+                    var plane = new THREE.Mesh(geometry, material);
+                    this._scene.add(plane);
+                    this._planes.push(plane);
+                }.bind(this));
             }.bind(this));
         },
         _render: function() {
